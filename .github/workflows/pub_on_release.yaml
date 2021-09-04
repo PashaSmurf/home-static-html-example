@@ -5,7 +5,7 @@ on:
     branches: [master]
 
 env:
-  VERSION: '1.0.3'
+  VERSION: '1.0.4'
 
 jobs:
   build_and_pub:
@@ -33,4 +33,4 @@ jobs:
       - name: Set tag to env
         run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_REF:11}-$VERSION)
       - name: Send webhook for deploy
-        run: "curl --silent --show-error --fail -X POST ${{ secrets.DEPLOYMENT_SERVER }} -H 'Authorization: ${{ secrets.DEPLOYMENT_TOKEN }}' -H 'Content-Type: application/json' -d '{\"owner\": \"${{ secrets.DOCKER_LOGIN }}\", \"repository\": \"${{ secrets.DOCKER_NAME }}\", \"tag\": \"${{ env.RELEASE_VERSION }}\", \"ports\": {\"80\": 80/hello}}'"
+        run: "curl --silent --show-error --fail -X POST ${{ secrets.DEPLOYMENT_SERVER }} -H 'Authorization: ${{ secrets.DEPLOYMENT_TOKEN }}' -H 'Content-Type: application/json' -d '{\"owner\": \"${{ secrets.DOCKER_LOGIN }}\", \"repository\": \"${{ secrets.DOCKER_NAME }}\", \"tag\": \"${{ env.RELEASE_VERSION }}\", \"ports\": {\"80\": 80}}'"
